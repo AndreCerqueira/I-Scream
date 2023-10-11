@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Scream</title>
+    <link rel="stylesheet" href="..\css\geral-style.css">
+    <link rel="stylesheet" href="..\css\game-screen-style.css">
+</head>
+<body>
+    
+    <!-- Background circle effect -->
+    <div>
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+        <div class="circle circle4"></div>
+        <div class="circle circle5"></div>
+        <div class="circle circle6"></div>
+    </div>
+
+    <div class="game-container">
+
+        <div class="topnav" style="border: 1px solid black; padding: 10px;">
+            <div id="contagemRegressiva">60</div>
+        </div>
+
+
+        <table id="tabuleiro">
+            <!-- Células do tabuleiro serão preenchidas aqui pelo JavaScript -->
+        </table>
+
+    </div>
+
+    <footer>
+        &#9829; Jogo criado por <strong>André Cerqueira</strong> e <strong>Nuno Fernandes</strong> &#9829;
+    </footer>
+    
+    <script src="..\js\utils.js"></script>
+    <script src="..\js\game.js"></script>
+
+</body>
+</html>

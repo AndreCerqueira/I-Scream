@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Scream</title>
+    <link rel="stylesheet" href="..\css\geral-style.css">
+    <link rel="stylesheet" href="..\css\big-character-style.css">
+    <link rel="stylesheet" href="..\css\main-screen-style.css">
+    <link rel="stylesheet" href="..\css\costumization-screen-style.css">
+</head>
+<body>
+    
+    <!-- Background circle effect -->
+    <div>
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+        <div class="circle circle4"></div>
+        <div class="circle circle5"></div>
+        <div class="circle circle6"></div>
+    </div>
+
+    <!--  style="border: 1px solid black; padding: 10px;" -->
+
+    <div>
+        <h1 class="title">I Scream</h1>
+
+        <div class="game-container">
+
+            <div class="character-container">
+                <div class="ice-cream">
+                <div class="glare"></div>
+                <div class="face">
+                <div class="eyes">
+                <div class="eye left">
+                </div>
+                <div class="eye right">
+                </div>
+                </div>
+                <div class="mouth"></div>
+                </div>
+                </div>
+                <div class="stick"></div>
+            </div>
+
+            <div>
+                <form id="costumizacaoJogador">
+                    <label for="nomeJogador">Nome do Jogador:</label>
+                    <input type="text" id="nomeJogador" name="nomeJogador" required>
+                
+                    <label for="corPersonagem">Cor do Personagem:</label>
+                    <select id="corPersonagem" name="corPersonagem">
+                        <option value="rosa">Rosa</option>
+                        <option value="amarelo">Amarelo</option>
+                        <option value="verde">Verde</option>
+                    </select>
+                
+                    <input type="button" value="Confirmar" onclick="confirmar()">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &#9829; Jogo criado por <strong>André Cerqueira</strong> e <strong>Nuno Fernandes</strong> &#9829;
+    </footer>
+    
+    <script src="..\js\utils.js"></script>
+    <script src="..\js\costumization.js"></script>
+
+</body>
+</html>

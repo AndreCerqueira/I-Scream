@@ -1,0 +1,63 @@
+body {
+    background: #9ef0ff;
+    font-family: 'Lobster', cursive;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background-color: #a0dee9; /* Cor azul clara */
+    opacity: 0.5; /* Torna os círculos semi-transparentes */
+    z-index: -1; /* Faz os círculos ficarem atrás de outros elementos */
+}
+
+.circle1 {
+    width: 100px;
+    height: 100px;
+    top: 10%;
+    left: 15%;
+}
+
+.circle2 {
+    width: 150px;
+    height: 150px;
+    top: 20%;
+    right: 20%;
+}
+
+.circle3 {
+    width: 200px;
+    height: 200px;
+    bottom: 15%;
+    left: 30%;
+}
+
+.circle4 {
+    width: 120px;
+    height: 120px;
+    top: 40%;
+    left: 10%;
+}
+
+.circle5 {
+    width: 180px;
+    height: 180px;
+    bottom: 20%;
+    right: 10%;
+}
+
+.circle6 {
+    width: 220px;
+    height: 220px;
+    top: 30%;
+    right: 30%;
+}
