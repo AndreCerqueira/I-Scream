@@ -2,8 +2,9 @@ const tempoInicial = 20;
 let tempoRestante = tempoInicial; 
 let jogoIniciado = true;
 let playerPosition = { x: 0, y: 0 }; 
+let temporizador;
 
-const placar = document.getElementById('score');
+const placar = document.getElementById('game-score');
 const elementoContagemRegressiva = document.getElementById('contagemRegressiva');
 let characterColor = sessionStorage.getItem('characterColor');
 if (!characterColor) characterColor = 'pink';
@@ -12,6 +13,7 @@ if (!characterColor) characterColor = 'pink';
 criarTabuleiro();
 atribuirCoresTabuleiro();
 
+iniciarTemporizador();
 
 
 // Criar slots de inventário
@@ -30,21 +32,23 @@ for (let i = 0; i < 3; i++) {
     inventario.appendChild(slot);
 }
 
-// Começar o temporizador
-const temporizador = setInterval(() => {
-    tempoRestante--;
-    elementoContagemRegressiva.innerText = tempoRestante;
 
-    if (tempoRestante <= 0) {
-        clearInterval(temporizador);
-        tempoRestante = tempoInicial;
-    }
-}, 1000);
+function iniciarTemporizador() {
+    // Função para iniciar o temporizador
+    temporizador = setInterval(() => {
+        tempoRestante--;
+        elementoContagemRegressiva.innerText = tempoRestante;
+
+        if (tempoRestante <= 0) {
+            clearInterval(temporizador);
+            showGameOverModal(); 
+        }
+    }, 1000);
+}
 
 
 playerPosition = spawnPlayer();
 changeCharacterColor(characterColor);
-
 
 
 document.addEventListener('keyup', (event) => {
@@ -105,9 +109,14 @@ function pauseGame() {
 }
 
 function restartGame() {
-    pontuacao = 0;
+    modal.style.display = "none";
+
+    score = 0;
     tempoRestante = tempoInicial;
     placar.innerText = 'Score: 0';
+    
+    clearInterval(temporizador); 
+    iniciarTemporizador(); 
 }
 
 function exitGame() {
