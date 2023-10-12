@@ -8,7 +8,9 @@ let bestScore = localStorage.getItem('bestScore');
 if (!bestScore) bestScore = 0;
 document.getElementById("game-best-score").innerHTML = "<strong> Best Score: " + bestScore + "</strong>";
 const placar = document.getElementById('game-score');
+
 const elementoContagemRegressiva = document.getElementById('contagemRegressiva');
+
 let characterColor = sessionStorage.getItem('characterColor');
 if (!characterColor) characterColor = 'pink';
 
@@ -18,22 +20,6 @@ atribuirCoresTabuleiro();
 
 iniciarTemporizador();
 
-
-// Criar slots de inventário
-for (let i = 0; i < 3; i++) {
-    const slot = document.createElement('div');
-    slot.className = 'slot';
-    slot.id = 'slot' + (i + 1);
-
-    // Adicionar um item de exemplo ao slot (opcional)
-    const item = document.createElement('img');
-    // item.src = 'caminho/para/o/item' + (i + 1) + '.png'; // Substitua com o caminho real para as imagens dos itens
-    // item.alt = 'Item ' + (i + 1);
-    // item.className = 'item';
-    slot.appendChild(item);
-
-    inventario.appendChild(slot);
-}
 
 
 function iniciarTemporizador() {
@@ -47,6 +33,7 @@ function iniciarTemporizador() {
             clearInterval(temporizador);
             
             if (score >= bestScore) {
+                bestScore = score;
                 localStorage.setItem('bestScore', score);
             }
 
@@ -60,6 +47,7 @@ playerPosition = spawnPlayer();
 changeCharacterColor(characterColor);
 
 
+let lastMoveWasValid = false;
 document.addEventListener('keyup', (event) => {
     if (!jogoIniciado || !playerPosition || tempoRestante <= 0) return;
 
@@ -97,15 +85,22 @@ document.addEventListener('keyup', (event) => {
             return; // Se não for uma tecla de seta, saia da função
     }
     
+    lastMoveWasValid = isValidMove;
     if (!isValidMove) return;
 
     const newCell = document.getElementById(`cell-${playerPosition.x}-${playerPosition.y}`);
-    if (newCell) newCell.appendChild(character); // Mova o contêiner do personagem para a nova célula
+    if (newCell) newCell.appendChild(character);
 
+    // Verifique se a nova célula contém um power-up
+    const powerUp = newCell.querySelector('.power-up');
+    if (powerUp) {
+        catchPowerUp(powerUp, newCell); 
+    }
+
+    incrementMoveCounter();
     ajustarTempoEPontuacao(newCell);
-    reatribuirCoresTabuleiro();
+    mudarCorDasOutrasCelulas(newCell);
 });
-
 
 function ajustarTempoEPontuacao(celula) {
     if (celula.classList.contains('celula-vermelho')) {
@@ -130,12 +125,14 @@ function pauseGame() {
     if (jogoIniciado) {
         jogoIniciado = false;
         clearInterval(temporizador);
+        clearInterval(powerUpInterval); 
         pauseButton.innerText = 'Continue'; 
         pauseButton.classList.remove('playing');
         pauseButton.classList.add('paused');
     } else {
         jogoIniciado = true;
         iniciarTemporizador();
+        iniciarPowerUps();
         pauseButton.innerText = 'Pause';
         pauseButton.classList.remove('paused');
         pauseButton.classList.add('playing');
@@ -154,8 +151,11 @@ function restartGame() {
     clearInterval(temporizador); 
     iniciarTemporizador(); 
     reatribuirCoresTabuleiro();
+    removeAllPowerUps();
+    clearAllInventorySlots();
     removePlayer();
     playerPosition = spawnPlayer();
+    changeCharacterColor(characterColor);
 }
 
 function exitGame() {
