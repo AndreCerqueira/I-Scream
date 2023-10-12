@@ -67,7 +67,10 @@ function spawnPowerUp() {
     document.addEventListener('keyup', function despawnListener(event) { // Adicionado o parâmetro 'event'
 
         if (!lastMoveWasValid) return;
-            
+        lastMoveWasValid = false;
+        
+        console.log('contou como despawnMoves');
+
         despawnMoves--;
 
         if (despawnMoves <= 0) {

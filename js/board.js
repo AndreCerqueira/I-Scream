@@ -54,16 +54,6 @@ function atribuirCoresTabuleiro() {
 function mudarCorDasOutrasCelulas(celulaAtual) {
     let cores = obterCoresBaseadasNaPontuacao();
 
-    if (score < 30) {
-        cores = ['celula-azul', 'celula-azul', 'celula-laranja', 'celula-laranja', 'celula-laranja', 'celula-laranja', 'celula-vermelho', 'celula-vermelho', 'celula-vermelho'];
-    } else if (score < 60) {
-        cores = ['celula-azul', 'celula-laranja', 'celula-laranja', 'celula-laranja', 'celula-laranja', 'celula-laranja', 'celula-vermelho', 'celula-vermelho', 'celula-vermelho'];
-    } else if (score < 90) {
-        cores = ['celula-azul', 'celula-laranja', 'celula-laranja', 'celula-laranja', 'celula-laranja', 'celula-vermelho', 'celula-vermelho', 'celula-vermelho', 'celula-vermelho'];
-    } else {
-        cores = ['celula-azul', 'celula-laranja', 'celula-laranja', 'celula-laranja', 'celula-vermelho', 'celula-vermelho', 'celula-vermelho', 'celula-vermelho', 'celula-vermelho'];
-    }
-
     // Remover a cor da célula atual do array de cores
     const corAtual = celulaAtual.classList.contains('celula-azul') ? 'celula-azul' :
                      celulaAtual.classList.contains('celula-laranja') ? 'celula-laranja' : 'celula-vermelho';

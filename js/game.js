@@ -3,6 +3,7 @@ let tempoRestante = tempoInicial;
 let jogoIniciado = true;
 let playerPosition = { x: 0, y: 0 }; 
 let temporizador;
+let isAnimating = false;
 
 let bestScore = localStorage.getItem('bestScore');
 if (!bestScore) bestScore = 0;
@@ -14,16 +15,11 @@ const elementoContagemRegressiva = document.getElementById('contagemRegressiva')
 let characterColor = sessionStorage.getItem('characterColor');
 if (!characterColor) characterColor = 'pink';
 
-
 criarTabuleiro();
 atribuirCoresTabuleiro();
-
 iniciarTemporizador();
 
-
-
 function iniciarTemporizador() {
-    // Função para iniciar o temporizador
     temporizador = setInterval(() => {
         tempoRestante--;
         if (tempoRestante < 0) tempoRestante = 0;
@@ -42,64 +38,77 @@ function iniciarTemporizador() {
     }, 1000);
 }
 
-
 playerPosition = spawnPlayer();
 changeCharacterColor(characterColor);
+changeCharacterMeltedColor(characterColor);
 
-
-let lastMoveWasValid = false;
 document.addEventListener('keyup', (event) => {
-    if (!jogoIniciado || !playerPosition || tempoRestante <= 0) return;
+    if (!jogoIniciado || !playerPosition || tempoRestante <= 0 || isAnimating) return;
 
     const cell = tabuleiro.querySelector(`#cell-${playerPosition.x}-${playerPosition.y}`);
     const character = cell.querySelector('.character-container');
     let isValidMove = false;
     if (!character) return;
 
+    let animationClass = '';
+    let newPosition = { ...playerPosition }; 
+
     switch(event.key) {
         case 'ArrowUp':
             if (playerPosition.x > 0) {
+                animationClass = 'move-up';
                 isValidMove = true;
-                playerPosition.x--;
+                newPosition.x--;
             }
             break;
         case 'ArrowDown':
             if (playerPosition.x < numRows - 1) {
+                animationClass = 'move-down';
                 isValidMove = true;
-                playerPosition.x++;
+                newPosition.x++;
             }
             break;
         case 'ArrowLeft':
             if (playerPosition.y > 0) {
+                animationClass = 'move-left';
                 isValidMove = true;
-                playerPosition.y--;
+                newPosition.y--;
             }
             break;
         case 'ArrowRight':
             if (playerPosition.y < numCols - 1) {
+                animationClass = 'move-right';
                 isValidMove = true;
-                playerPosition.y++;
+                newPosition.y++;
             }
             break;
         default:
-            return; // Se não for uma tecla de seta, saia da função
+            return;
     }
     
-    lastMoveWasValid = isValidMove;
     if (!isValidMove) return;
+    
+    isAnimating = true;
+    
+    character.classList.add(animationClass);
 
-    const newCell = document.getElementById(`cell-${playerPosition.x}-${playerPosition.y}`);
-    if (newCell) newCell.appendChild(character);
+    character.addEventListener('animationend', () => {
+        character.classList.remove(animationClass);
+        const newCell = document.getElementById(`cell-${newPosition.x}-${newPosition.y}`);
+        if (newCell) newCell.appendChild(character);
+        playerPosition = newPosition; 
 
-    // Verifique se a nova célula contém um power-up
-    const powerUp = newCell.querySelector('.power-up');
-    if (powerUp) {
-        catchPowerUp(powerUp, newCell); 
-    }
+        const powerUp = newCell.querySelector('.power-up');
+        if (powerUp) {
+            catchPowerUp(powerUp, newCell); 
+        }
 
-    incrementMoveCounter();
-    ajustarTempoEPontuacao(newCell);
-    mudarCorDasOutrasCelulas(newCell);
+        incrementMoveCounter();
+        ajustarTempoEPontuacao(newCell);
+        mudarCorDasOutrasCelulas(newCell);
+
+        isAnimating = false;
+    }, {once: true});
 });
 
 function ajustarTempoEPontuacao(celula) {
@@ -116,8 +125,6 @@ function ajustarTempoEPontuacao(celula) {
     elementoContagemRegressiva.innerText = tempoRestante;
     placar.innerText = 'Score: ' + score;
 }
-
-
 
 function pauseGame() {
     const pauseButton = document.querySelector('#pauseButton');
