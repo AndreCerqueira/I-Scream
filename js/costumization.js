@@ -1,23 +1,31 @@
 
-const selectCorPersonagem = document.getElementById('corPersonagem');
-const corPersonagem = sessionStorage.getItem('corPersonagem');
+const selectCharacterColor = document.getElementById('characterColor');
+const inputCharacterName = document.getElementById('characterName');
 
-alterarCorPersonagem(corPersonagem);
-selectCorPersonagem.value = corPersonagem;
+let characterColor = sessionStorage.getItem('characterColor');
+if (!characterColor) characterColor = 'pink';
 
+changeCharacterColor(characterColor);
+selectCharacterColor.value = characterColor;
 
-function confirmar() {
-    const corPersonagem = document.getElementById('corPersonagem').value;
+let characterName = sessionStorage.getItem('characterName');
+if (!characterName) characterName = 'Gelato';
+inputCharacterName.value = characterName;
 
-    sessionStorage.setItem('corPersonagem', corPersonagem);
+function confirm() {
+    let characterColor = selectCharacterColor.value;
+    let characterName = inputCharacterName.value;
+
+    sessionStorage.setItem('characterColor', characterColor);
+    sessionStorage.setItem('characterName', characterName);
 
     window.location.href = 'index.html';
 }
 
 
-selectCorPersonagem.addEventListener('change', function() {
-    const corSelecionada = selectCorPersonagem.value;
+selectCharacterColor.addEventListener('change', function() {
+    const color = selectCharacterColor.value;
 
-    alterarCorPersonagem(corSelecionada);
+    changeCharacterColor(color);
 });
 

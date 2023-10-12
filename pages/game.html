@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I Scream</title>
+    <link rel="stylesheet" href="..\css\small-character-style.css">
     <link rel="stylesheet" href="..\css\geral-style.css">
     <link rel="stylesheet" href="..\css\game-screen-style.css">
 </head>
@@ -19,25 +20,50 @@
         <div class="circle circle6"></div>
     </div>
 
+    <div class="snow">
+    </div>
+
     <div class="game-container">
 
         <div class="topnav" style="border: 1px solid black; padding: 10px;">
             <div id="contagemRegressiva">60</div>
+            <div>
+                <button class="btn sm-btn" onclick="pauseGame()"> Pause </button> <!-- Continue / Pause -->
+                <button class="btn sm-btn" onclick="restartGame()"> Restart </button> 
+                <button class="btn dark-btn sm-btn" onclick="exitGame()"> Exit </button> 
+            </div>
+            <div>
+                <div id="bestScore"><strong>Record: 0</strong></div>
+                <div id="score">Score: 0</div>
+            </div>
         </div>
 
-
-        <table id="tabuleiro">
+        <div id="tabuleiro">
             <!-- Células do tabuleiro serão preenchidas aqui pelo JavaScript -->
-        </table>
+        </div>
+        
+        <!-- Adicionando a seção de inventário -->
+        <div class="inventory-container">
+            <label>Inventory:</label>
+            <div id="inventario">
+                <!-- Slots do inventário serão preenchidos aqui pelo JavaScript -->
+            </div>
+        </div>
 
     </div>
 
     <footer>
-        &#9829; Jogo criado por <strong>André Cerqueira</strong> e <strong>Nuno Fernandes</strong> &#9829;
+        &#9829; Game created by <strong>André Cerqueira</strong> & <strong>Nuno Fernandes</strong> &#9829;
     </footer>
     
+    <script>
+        let score = 0;
+    </script>
+
     <script src="..\js\utils.js"></script>
+    <script src="..\js\board.js"></script>
     <script src="..\js\game.js"></script>
+
 
 </body>
 </html>
