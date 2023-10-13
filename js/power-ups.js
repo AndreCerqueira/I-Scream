@@ -68,8 +68,6 @@ function spawnPowerUp() {
 
         if (!lastMoveWasValid) return;
         lastMoveWasValid = false;
-        
-        console.log('contou como despawnMoves');
 
         despawnMoves--;
 

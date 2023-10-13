@@ -4,6 +4,7 @@ let jogoIniciado = true;
 let playerPosition = { x: 0, y: 0 }; 
 let temporizador;
 let isAnimating = false;
+let lastMoveWasValid = false;
 
 let bestScore = localStorage.getItem('bestScore');
 if (!bestScore) bestScore = 0;
@@ -20,10 +21,25 @@ atribuirCoresTabuleiro();
 iniciarTemporizador();
 
 function iniciarTemporizador() {
+
+    elementoContagemRegressiva.style.animation = 'pulse 1s infinite';
+
     temporizador = setInterval(() => {
         tempoRestante--;
         if (tempoRestante < 0) tempoRestante = 0;
         elementoContagemRegressiva.innerText = tempoRestante;
+
+        if (tempoRestante <= 5) {
+            elementoContagemRegressiva.style.color = 'red';
+        } else if (tempoRestante <= 10) {
+            elementoContagemRegressiva.style.color = 'yellow';
+        } else {
+            elementoContagemRegressiva.style.color = 'green';
+        }
+
+        if (tempoRestante === 0) {
+            elementoContagemRegressiva.style.animation = 'none';
+        }
 
         if (tempoRestante <= 0) {
             clearInterval(temporizador);
@@ -40,9 +56,14 @@ function iniciarTemporizador() {
 
 playerPosition = spawnPlayer();
 changeCharacterColor(characterColor);
-changeCharacterMeltedColor(characterColor);
+document.querySelector('.melted-ice-cream').src = `../img/${characterColor}-melted.svg`;
 
 document.addEventListener('keyup', (event) => {
+    if (event.key === 'r' || event.key === 'R') {
+        restartGame(); 
+        return; 
+    }
+
     if (!jogoIniciado || !playerPosition || tempoRestante <= 0 || isAnimating) return;
 
     const cell = tabuleiro.querySelector(`#cell-${playerPosition.x}-${playerPosition.y}`);
@@ -85,6 +106,7 @@ document.addEventListener('keyup', (event) => {
         default:
             return;
     }
+    lastMoveWasValid = isValidMove;
     
     if (!isValidMove) return;
     
@@ -139,7 +161,6 @@ function pauseGame() {
     } else {
         jogoIniciado = true;
         iniciarTemporizador();
-        iniciarPowerUps();
         pauseButton.innerText = 'Pause';
         pauseButton.classList.remove('paused');
         pauseButton.classList.add('playing');
@@ -152,7 +173,10 @@ function restartGame() {
 
     document.getElementById("game-best-score").innerHTML = "<strong> Best Score: " + bestScore + "</strong>";
     score = 0;
+    moveCounter = 0;
+    elementoContagemRegressiva.style.color = 'green';
     tempoRestante = tempoInicial;
+    elementoContagemRegressiva.innerText = tempoRestante;
     placar.innerText = 'Score: 0';
     
     clearInterval(temporizador); 

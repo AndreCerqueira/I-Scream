@@ -28,6 +28,9 @@ input[type="button"] {
     cursor: pointer;
     font-size: 20px;
     font-family: 'Lobster', cursive;
+    border: 0;
+    border-right: 2px solid #888; 
+    border-bottom: 2px solid #888;
 }
 
 input[type="button"]:hover {
