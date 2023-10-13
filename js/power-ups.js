@@ -73,8 +73,15 @@ function spawnPowerUp() {
 
         if (despawnMoves <= 0) {
             if (powerUp.parentNode === cell) {
-                cell.removeChild(powerUp);
+                powerUp.style.visibility = 'hidden'; 
+    
+                setTimeout(() => {
+                    if (powerUp.parentNode === cell) { 
+                        cell.removeChild(powerUp);
+                    }
+                }, 2000); // Remove o power-up após 2 segundos
             }
+    
             document.removeEventListener('keyup', despawnListener);
         }
     });
