@@ -9,7 +9,8 @@ const db = getFirestore(app);
 let devRank = 0;
 async function getLeaderboard() {
     const leaderboardCollection = collection(db, 'leaderboard');
-    const q = query(leaderboardCollection, orderBy('score', 'desc'), limit(10)); // Ordena por score e limita para o top 10
+    const q = query(leaderboardCollection, orderBy('score', 'desc'), orderBy('date'), limit(10));
+    
     const leaderboardSnapshot = await getDocs(q);
     const leaderboardTable = document.getElementById('leaderboardTable').getElementsByTagName('tbody')[0];
     leaderboardTable.innerHTML = ''; // Limpa a tabela existente
@@ -66,7 +67,7 @@ async function getLeaderboard() {
         flavorCell.appendChild(icon);
         changeCharacterColor(getFlavorName(data.flavor), icon);
 
-        if (doc.id === 'v719sdJjLiM67gpgUUMV') {
+        if (data.name.toLowerCase() === 'né') {
             devRank = rank;
         }
 
