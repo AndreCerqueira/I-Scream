@@ -2,11 +2,9 @@
 import { app } from './configDB.js';
 
 // Importa o Firestore
-import { getFirestore, collection, query, where, orderBy, limit, getDocs, addDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { getFirestore, collection, query, where, orderBy, limit, getDocs, addDoc, doc, deleteDoc } from "./firebase-firestore.js";
 
 const db = getFirestore(app);
-
-document.getElementById('flavorScores').style.display = 'none';
 
 async function getLeaderboard() {
     const leaderboardCollection = collection(db, 'leaderboard');
@@ -70,7 +68,6 @@ async function getLeaderboard() {
         rank++; // Incrementa o contador de rank
     });
 
-    console.log('Total Scores:', totalScores);
     // Atualiza a largura das barras de sabor com base na porcentagem do total de pontos
     if (totalPoints > 0) {
         Object.keys(totalScores).forEach(flavor => {
@@ -91,6 +88,7 @@ window.updateLeaderboard = async function(score, flavor) {
     try {
         const name = sessionStorage.getItem("characterName");
         const leaderboardCollection = collection(db, 'leaderboard');
+        let haveBetterScore = false;
 
         // Consulta para encontrar registros com o mesmo nome de usuário
         const q = query(leaderboardCollection, where("name", "==", name));
@@ -100,7 +98,9 @@ window.updateLeaderboard = async function(score, flavor) {
         querySnapshot.forEach(async (document) => {
             const data = document.data();
 
-            console.log('Found existing score for user:', data);
+            if (data.score >= score) {
+                haveBetterScore = true;
+            }
 
             // Verifica se o novo score é melhor que o antigo
             if (score > data.score) {
@@ -108,6 +108,11 @@ window.updateLeaderboard = async function(score, flavor) {
                 await deleteDoc(doc(db, 'leaderboard', document.id));
             }
         });
+
+        // Verifica se o novo score é melhor que o antigo
+        if (haveBetterScore) {
+            return;
+        }
 
         // Adiciona o novo score
         const newScore = {
@@ -118,13 +123,14 @@ window.updateLeaderboard = async function(score, flavor) {
         };
         await addDoc(leaderboardCollection, newScore);
 
-        console.log('New score added to leaderboard');
     } catch (error) {
-        console.error('Error updating leaderboard:', error);
     }
 }
 
 if (window.location.pathname.includes('/leaderboard.html')){
+
+    document.getElementById('flavorScores').style.display = 'none';
+    
     getLeaderboard(); // Chama a função quando a página é carregada
 
     changeCharacterColor("pink", document.getElementById('pink-character'));

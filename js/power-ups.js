@@ -71,8 +71,6 @@ function spawnPowerUp() {
 
         despawnMoves--;
 
-        console.log("despawnMoves: " + despawnMoves);
-
         if (despawnMoves <= 0) {
             if (powerUp.parentNode === cell) {
                 powerUp.style.visibility = 'hidden'; 

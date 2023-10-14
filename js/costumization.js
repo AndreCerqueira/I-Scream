@@ -19,7 +19,6 @@ function confirm() {
     let characterName = inputCharacterName.value.trim(); 
 
     if (!characterName) {
-        console.log('Name is empty');
         showToast();
         return; 
     }

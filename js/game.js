@@ -155,22 +155,32 @@ function ajustarTempoEPontuacao(celula) {
     placar.innerText = 'Score: ' + score;
 }
 
+let pauseButtonPressed = false;
+let continueButtonPressed = false;
 function pauseGame() {
+    if (pauseButtonPressed && continueButtonPressed) return;
+
     const pauseButton = document.querySelector('#pauseButton');
 
-    if (jogoIniciado) {
+    if (jogoIniciado && !pauseButtonPressed) {
         jogoIniciado = false;
         clearInterval(temporizador);
         clearInterval(powerUpInterval); 
         pauseButton.innerText = 'Continue'; 
         pauseButton.classList.remove('playing');
         pauseButton.classList.add('paused');
+        pauseButtonPressed = true;
     } else {
+
+        if (continueButtonPressed)
+            return;
+
         jogoIniciado = true;
         iniciarTemporizador();
         pauseButton.innerText = 'Pause';
         pauseButton.classList.remove('paused');
         pauseButton.classList.add('playing');
+        continueButtonPressed = true;
     }
 }
 
@@ -185,6 +195,8 @@ function restartGame() {
     tempoRestante = tempoInicial;
     elementoContagemRegressiva.innerText = tempoRestante;
     placar.innerText = 'Score: 0';
+    pauseButtonPressed = false;
+    continueButtonPressed = false;
     
     clearInterval(temporizador); 
     iniciarTemporizador(); 
@@ -197,5 +209,5 @@ function restartGame() {
 }
 
 function exitGame() {
-    window.location.href = 'index.html';
+    window.location.href = '../index.html';
 }
