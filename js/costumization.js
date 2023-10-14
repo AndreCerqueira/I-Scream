@@ -29,7 +29,7 @@ function confirm() {
     sessionStorage.setItem('characterColor', characterColor);
     sessionStorage.setItem('characterName', characterName);
 
-    window.location.href = 'index.html';
+    window.location.href = '../index.html';
 }
 
 selectCharacterColor.addEventListener('change', function() {
