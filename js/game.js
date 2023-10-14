@@ -1,4 +1,4 @@
-const tempoInicial = 20;
+const tempoInicial = 30;
 let tempoRestante = tempoInicial; 
 let jogoIniciado = true;
 let playerPosition = { x: 0, y: 0 }; 
@@ -20,7 +20,6 @@ if (!characterColor) characterColor = 'pink';
 
 criarTabuleiro();
 atribuirCoresTabuleiro();
-iniciarTemporizador();
 
 function iniciarTemporizador() {
 
@@ -118,6 +117,10 @@ document.addEventListener('keyup', (event) => {
     if (!isValidMove) return;
     
     isAnimating = true;
+
+    if (!temporizador) {
+        iniciarTemporizador();
+    }
     
     character.classList.add(animationClass);
 
@@ -197,6 +200,7 @@ function restartGame() {
     placar.innerText = 'Score: 0';
     pauseButtonPressed = false;
     continueButtonPressed = false;
+    isAnimating = false;
     
     clearInterval(temporizador); 
     iniciarTemporizador(); 

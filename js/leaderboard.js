@@ -6,6 +6,7 @@ import { getFirestore, collection, query, where, orderBy, limit, getDocs, addDoc
 
 const db = getFirestore(app);
 
+let devRank = 0;
 async function getLeaderboard() {
     const leaderboardCollection = collection(db, 'leaderboard');
     const q = query(leaderboardCollection, orderBy('score', 'desc'), limit(10)); // Ordena por score e limita para o top 10
@@ -65,6 +66,10 @@ async function getLeaderboard() {
         flavorCell.appendChild(icon);
         changeCharacterColor(getFlavorName(data.flavor), icon);
 
+        if (doc.id === 'v719sdJjLiM67gpgUUMV') {
+            devRank = rank;
+        }
+
         rank++; // Incrementa o contador de rank
     });
 
@@ -81,6 +86,30 @@ async function getLeaderboard() {
         });
     }
     document.getElementById('flavorScores').style.display = 'flex';
+
+    if (devRank != 0){
+        const devWarning = document.createElement('div');
+        devWarning.innerHTML = `
+            <div class="dev-container">
+                <div class="icon">
+                    <div class="arrow"></div>
+                </div>
+                <div class="dev-info">
+                    <span class="dev-text">This dude is the dev. 😐</span>
+                </div>
+            </div>
+        `;
+
+        const row = document.getElementById('leaderboardTable').rows[devRank]; // +1 para ignorar o cabeçalho da tabela
+
+        // Posiciona o aviso ao lado da linha do usuário "ne"
+        const rect = row.getBoundingClientRect();
+        devWarning.style.position = 'absolute';
+        devWarning.style.left = `${rect.right + window.scrollX + 10}px`; // 10px para dar um pequeno espaço entre o aviso e a tabela
+        devWarning.style.top = `${rect.top + window.scrollY - 20}px`;
+
+        document.body.appendChild(devWarning);
+    }
 }
 
 // Adicionar um novo score ao leaderboard no Firestore

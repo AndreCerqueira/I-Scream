@@ -71,6 +71,10 @@
     border-bottom: 2px solid #ccc; 
 }
 
+#table-container {
+    position: relative;
+}
+
 .gold {
     background-color: #fff6c1 !important;  
 }
@@ -118,3 +122,72 @@
 .pink { background-color: #ffdeef; }
 .yellow { background-color: #fff7d7; }
 .green { background-color: #dfffda; }
+
+
+
+/* dev warning */
+
+.dev-container {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    position: absolute;
+}
+
+.dev-info {
+    padding: 12px 15px;
+    background-color: #FFF;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 200px; /* Adicionado para limitar a largura do aviso */
+}
+
+.icon {
+    margin-right: 10px; /* Adiciona um espaço entre a seta e o div branco */
+}
+
+.dev-text {
+    font-size: 16px;
+    color: #555;
+}
+
+.icon {
+    width: 40px; /* Reduzido o tamanho */
+    height: 30px; /* Reduzido o tamanho */
+}
+
+.arrow {
+    position: relative;
+    top: 12px; /* Ajustado conforme o novo tamanho */
+    width: 90%;
+    height: 5px; /* Reduzido o tamanho */
+    background-color: #fff;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+    border-bottom-right-radius: 24px;
+    border-top-right-radius: 24px;
+}
+
+.arrow::after, .arrow::before {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 5px; /* Reduzido o tamanho */
+    left: -5px; /* Ajustado conforme o novo tamanho */
+    background-color: #fff;
+}
+
+.arrow::after {
+    top: -2px; /* Ajustado conforme o novo tamanho */
+    transform: rotate(-45deg);
+    border-bottom-right-radius: 24px;
+    border-top-right-radius: 24px;
+}
+
+.arrow::before {
+    top: 2px; /* Ajustado conforme o novo tamanho */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+    transform: rotate(45deg);
+    border-bottom-right-radius: 24px;
+    border-top-right-radius: 24px;
+}
