@@ -20,3 +20,7 @@ function openInstructions() {
 function openIndex() {
     document.location.href = "index.html";
 }
+
+function openLeaderboard() {
+    document.location.href = "leaderboard.html";
+}

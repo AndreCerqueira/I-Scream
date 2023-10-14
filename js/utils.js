@@ -50,7 +50,7 @@ function removePlayer() {
     if (character) character.remove();
 }
 
-function changeCharacterColor(cor) {
+function changeCharacterColor(cor, element = document) {
     const cores = {
         pink: {
             background: '#F982BF',
@@ -85,34 +85,51 @@ function changeCharacterColor(cor) {
         return;
     }
 
-    const title = document.querySelector('.title');
-    const iceCreams = document.querySelectorAll('.ice-cream');
-    const glares = document.querySelectorAll('.glare');
-    const eyes = document.querySelectorAll('.eye');
-    const mouths = document.querySelectorAll('.mouth');
+    const iceCream = element.querySelector('.ice-cream');
+    const glare = element.querySelector('.glare');
+    const eyes = element.querySelectorAll('.eye');
+    const mouth = element.querySelector('.mouth');
+    const title = element.querySelector('.title');
 
-    iceCreams.forEach(iceCream => {
+    if (iceCream) {
         iceCream.style.backgroundColor = corCSS['background'];
         iceCream.style.borderTopColor = corCSS['lights'];
-    });
+    }
 
-    glares.forEach(glare => 
-        glare.style.backgroundColor = corCSS['glare']
-    );
+    if (glare) {
+        glare.style.backgroundColor = corCSS['glare'];
+    }
 
-    eyes.forEach(eye => { 
+    eyes.forEach(eye => {
         eye.style.backgroundColor = corCSS['eye'];
         eye.style.borderBottomColor = corCSS['lights'];
     });
 
-    mouths.forEach(mouth => {
+    if (mouth) {
         mouth.style.backgroundColor = corCSS['mouth'];
-        mouth.style.borderBottomColor = corCSS['lights']; 
-    });
+        mouth.style.borderBottomColor = corCSS['lights'];
+    }
 
     if (title) {
         title.style.color = corCSS['lights'];
         title.style.textShadow = `0 0 10px ${corCSS['shadow']}`;
     }
+}
 
+function getFlavorId(characterColor){
+    const flavors = {
+        pink: 1,
+        yellow: 2,
+        green: 3
+    };
+    return flavors[characterColor];
+}
+
+function getFlavorName(flavorId){
+    const flavors = {
+        1: 'pink',
+        2: 'yellow',
+        3: 'green'
+    };
+    return flavors[flavorId];
 }

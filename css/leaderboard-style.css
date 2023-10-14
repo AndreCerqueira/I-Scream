@@ -1,0 +1,120 @@
+#leaderboardTable {
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border-collapse: collapse;
+    font-size: 1.2em;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#leaderboardTable thead tr {
+    background-color: #FFF; 
+    color: #555;
+    text-align: center;
+}
+
+#leaderboardTable th, 
+#leaderboardTable td {
+    padding: 12px 15px;
+}
+
+#leaderboardTable tbody tr {
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#leaderboardTable tbody tr:nth-of-type(even) {
+    background-color: #f7f7f7; 
+}
+
+#leaderboardTable tbody tr:nth-of-type(odd) {
+    background-color: #e9e9e9; 
+}
+
+#leaderboardTable td:nth-child(1), th:nth-child(1) {
+    text-align: center;
+}
+
+#leaderboardTable td:nth-child(2), th:nth-child(2) {
+    text-align: center; 
+}
+
+#leaderboardTable td:nth-child(3), th:nth-child(3) {
+    text-align: center; 
+}
+
+#leaderboardTable tbody tr:last-of-type {
+    border-bottom: 2px solid #55555579;
+}
+
+#leaderboardTable tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+#leaderboardTable img {
+    vertical-align: middle;
+}
+
+#leaderboardTable td {
+    padding: 10px;
+    text-align: left; 
+    vertical-align: middle;
+}
+
+#leaderboardTable th {
+    padding: 10px;
+    background-color: #f0f0f0; 
+    border-bottom: 2px solid #ccc; 
+}
+
+.gold {
+    background-color: #fff6c1 !important;  
+}
+
+.silver {
+    background-color: #e4dede !important; 
+}
+
+.bronze {
+    background-color: #f0d4b8 !important; 
+}
+
+.flavor-scores {
+    display: flex;
+    align-items: center;
+    width: 60%; /* A mesma largura da tabela */
+    margin: 20px auto; /* Centraliza a barra de progresso */
+    box-shadow: 0 0 20px rgba(0,0,0,0.15); /* Adiciona sombra */
+    border-radius: 10px; /* Adiciona bordas arredondadas */
+    overflow: hidden; /* Garante que o conteúdo interno não ultrapasse as bordas arredondadas */
+    background-color: #FFF; /* Adiciona cor de fundo branca */
+    border-bottom: 2px solid #cccccc; /* Adiciona borda inferior */
+}
+
+.flavor-score {
+    height: 100%;
+    transition: width 0.3s ease-in-out;
+    position: relative; 
+    border-right: 1px solid #cccccc; /* Adiciona borda entre as barras de pontuação */
+}
+
+.flavor-score:last-child {
+    border-right: none; /* Remove a borda da última barra de pontuação */
+}
+
+.score-text {
+    display: block; 
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: black;
+}
+
+.pink { background-color: #ffdeef; }
+.yellow { background-color: #fff7d7; }
+.green { background-color: #dfffda; }

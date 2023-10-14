@@ -6,7 +6,9 @@ let temporizador;
 let isAnimating = false;
 let lastMoveWasValid = false;
 
+// localStorage.setItem('bestScore', 20);
 let bestScore = localStorage.getItem('bestScore');
+
 if (!bestScore) bestScore = 0;
 document.getElementById("game-best-score").innerHTML = "<strong> Best Score: " + bestScore + "</strong>";
 const placar = document.getElementById('game-score');
@@ -47,6 +49,11 @@ function iniciarTemporizador() {
             if (score >= bestScore) {
                 bestScore = score;
                 localStorage.setItem('bestScore', score);
+
+                try {
+                    updateLeaderboard(score, getFlavorId(characterColor));
+                } catch (error) {
+                }
             }
 
             showGameOverModal(); 

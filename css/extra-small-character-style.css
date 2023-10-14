@@ -1,0 +1,85 @@
+.character-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+.ice-cream {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 20px; /* Ajustado */
+    height: 30px; /* Ajustado */
+    background: #F982BF;
+    border-top: 1px solid #FF98CC; /* Ajustado */
+    border-radius: 10px; /* Ajustado */
+    border-bottom-left-radius: 2.5px; /* Ajustado */
+    border-bottom-right-radius: 2.5px; /* Ajustado */
+}
+
+.glare {
+    position: relative;
+    left: 14px; /* Ajustado */
+    bottom: 2px; /* Ajustado */
+    transform: rotate(-38deg);
+    width: 3px; /* Ajustado */
+    height: 6px; /* Ajustado */
+    background: #FF98CC;
+    border-radius: 9px; /* Ajustado */
+}
+
+.face {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 5px; /* Ajustado */
+}
+
+.eyes {
+    display: flex;
+    justify-content: space-between;
+    width: 12px; /* Ajustado */
+}
+
+.eye {
+    position: relative;
+    width: 1.5px; /* Ajustado */
+    height: 1.5px; /* Ajustado */
+    background: #FF2995;
+    border-bottom: 0.2px solid #FF98CC; /* Ajustado */
+    border-radius: 9px; /* Ajustado */
+}
+
+.eye::before {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0.5px; /* Ajustado */
+    height: 0.5px; /* Ajustado */
+    background: #fff;
+    border-radius: 9px; /* Ajustado */
+}
+
+.mouth {
+    width: 6px; /* Ajustado */
+    height: 2px; /* Ajustado */
+    background: #FF2995;
+    border-radius: 1px; /* Ajustado */
+    border-bottom: 0.2px solid #FF98CC; /* Ajustado */
+    border-bottom-left-radius: 3.5px; /* Ajustado */
+    border-bottom-right-radius: 3.5px; /* Ajustado */
+}
+
+.stick {
+    width: 5px; /* Ajustado */
+    height: 6px; /* Ajustado */
+    background: #ECAA7D;
+    border-top: 1px solid #DB9E74; /* Ajustado */
+    border-bottom-left-radius: 2.5px; /* Ajustado */
+    border-bottom-right-radius: 2.5px; /* Ajustado */
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Scream</title>
+    <link rel="icon" type="image/svg+xml" href="../img/gelinho.svg">
+    <link rel="stylesheet" href="..\css\geral-style.css">
+    <link rel="stylesheet" href="..\css\extra-small-character-style.css">
+    <link rel="stylesheet" href="..\css\leaderboard-style.css">
+    <link rel="stylesheet" href="..\css\main-screen-style.css">
+</head>
+<body>
+    
+    <div class="snow">
+    </div>
+
+    <!-- Background circle effect -->
+    <div>
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+        <div class="circle circle4"></div>
+        <div class="circle circle5"></div>
+        <div class="circle circle6"></div>
+    </div>
+
+    <!--  style="border: 1px solid black; padding: 10px;" -->
+    <div>
+        <h1 class="title">Leaderboard</h1>
+        
+        <div id="flavorScores" class="flavor-scores">
+            <div id="1Score" class="flavor-score pink">
+                <div id="pink-character" class="character-container" style="margin-top: 10px;">
+                    <div class="ice-cream">
+                        <div class="glare"></div>
+                        <div class="face">
+                            <div class="eyes">
+                                <div class="eye left"></div>
+                                <div class="eye right"></div>
+                            </div>
+                            <div class="mouth"></div>
+                        </div>
+                    </div>
+                    <div class="stick"></div>
+                </div>
+                <span class="score-text"></span>
+            </div>
+            <div id="2Score" class="flavor-score yellow">
+                <div id="yellow-character" class="character-container" style="margin-top: 10px;">
+                    <div class="ice-cream">
+                        <div class="glare"></div>
+                        <div class="face">
+                            <div class="eyes">
+                                <div class="eye left"></div>
+                                <div class="eye right"></div>
+                            </div>
+                            <div class="mouth"></div>
+                        </div>
+                    </div>
+                    <div class="stick"></div>
+                </div>
+                <span class="score-text"></span>
+            </div>
+            <div id="3Score" class="flavor-score green">
+                <div id="green-character" class="character-container" style="margin-top: 10px;">
+                    <div class="ice-cream">
+                        <div class="glare"></div>
+                        <div class="face">
+                            <div class="eyes">
+                                <div class="eye left"></div>
+                                <div class="eye right"></div>
+                            </div>
+                            <div class="mouth"></div>
+                        </div>
+                    </div>
+                    <div class="stick"></div>
+                </div>
+                <span class="score-text"></span>
+            </div>
+        </div>
+        
+        <table id="leaderboardTable">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                    <th>Flavor</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+        <button class="btn sm-btn" style="display: block; margin: auto;" onclick="openIndex()">Return</button>
+
+    </div>
+    
+    <footer>
+        &#9829; Game created by <strong>André Cerqueira</strong> & <strong>Nuno Fernandes</strong> & <strong>Marco Cerqueira</strong> &#9829;
+    </footer>
+    
+    <script src="..\js\utils.js"></script>
+    <script src="..\js\main-page.js"></script>
+    <script type="module" src="..\js\configDB.js"></script>
+    <script type="module" src="..\js\leaderboard.js"></script>
+
+</body>
+</html>
