@@ -3,6 +3,7 @@ let tempoRestante = tempoInicial;
 let jogoIniciado = true;
 let playerPosition = { x: 0, y: 0 }; 
 let temporizador;
+let temporizadorParado = true;
 let isAnimating = false;
 let lastMoveWasValid = false;
 
@@ -119,8 +120,9 @@ document.addEventListener('keyup', (event) => {
     
     isAnimating = true;
 
-    if (!temporizador) {
+    if (temporizadorParado) {
         iniciarTemporizador();
+        temporizadorParado = false;
     }
     
     character.classList.add(animationClass);
@@ -142,6 +144,7 @@ document.addEventListener('keyup', (event) => {
 
         isAnimating = false;
     }, {once: true});
+    
 });
 
 function ajustarTempoEPontuacao(celula) {
@@ -168,6 +171,7 @@ function pauseGame() {
 
     if (jogoIniciado && !pauseButtonPressed) {
         jogoIniciado = false;
+        temporizadorParado = true;
         clearInterval(temporizador);
         clearInterval(powerUpInterval); 
         pauseButton.innerText = 'Continue'; 
@@ -179,6 +183,7 @@ function pauseGame() {
         if (continueButtonPressed)
             return;
 
+        temporizadorParado = false;
         jogoIniciado = true;
         iniciarTemporizador();
         pauseButton.innerText = 'Pause';
@@ -204,7 +209,7 @@ function restartGame() {
     isAnimating = false;
     
     clearInterval(temporizador); 
-    iniciarTemporizador();
+    temporizadorParado = true;
     reatribuirCoresTabuleiro();
     removeAllPowerUps();
     clearAllInventorySlots();

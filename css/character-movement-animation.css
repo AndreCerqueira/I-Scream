@@ -19,17 +19,17 @@
 }
 
 .move-up {
-    animation: moveUp 0.2s ease-in-out forwards; 
+    animation: moveUp 0.15s ease-in-out forwards; 
 }
 
 .move-down {
-    animation: moveDown 0.2s ease-in-out forwards; 
+    animation: moveDown 0.15s ease-in-out forwards; 
 }
 
 .move-left {
-    animation: moveLeft 0.2s ease-in-out forwards; 
+    animation: moveLeft 0.15s ease-in-out forwards; 
 }
 
 .move-right {
-    animation: moveRight 0.2s ease-in-out forwards; 
+    animation: moveRight 0.15s ease-in-out forwards; 
 }

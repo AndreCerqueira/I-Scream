@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" oncontextmenu="return false">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,6 +83,7 @@
         <div class="tab">
             <button class="tablinks active" onclick="openTab(event, 'AllTime')">All-Time High Scores 👑</button>
             <button class="tablinks" onclick="openTab(event, 'Daily')">Today's Best 🌞</button>
+            <button class="tablinks" onclick="openTab(event, 'Yesterday')">Yesterday's Best 🌜</button>
             <button class="tablinks" onclick="openTab(event, 'Medalists')">Top Medalists 🥇</button>
         </div>
         
@@ -116,6 +117,21 @@
             </table>
         </div>
 
+        <div id="Yesterday" class="tabcontent" style="display: none;">
+            <table id="leaderboardTableYesterday" class="leaderboardTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Flavor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
         <div id="Medalists" class="tabcontent" style="display: none;">
             <table id="leaderboardTableMedalists" class="leaderboardTable">
                 <thead>
@@ -127,27 +143,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>1000</td>
-                        <td class="awards-cell">
-                            <div class="medal-container">
-                                <div class="medal-item">
-                                    <img src="../img/golden-cup.png" width="40">
-                                </div>
-                                <div class="medal-item">
-                                    <img src="../img/medal-1.png" width="40"> x5
-                                </div>
-                                <div class="medal-item">
-                                    <img src="../img/medal-2.png" width="40"> x3
-                                </div>
-                                <div class="medal-item">
-                                    <img src="../img/medal-3.png" width="40"> x2
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>

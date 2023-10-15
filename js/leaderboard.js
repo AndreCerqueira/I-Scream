@@ -177,7 +177,7 @@ window.updateLeaderboard = async function(bestScoreToday, flavor) {
         querySnapshot.forEach(async (document) => {
             const data = document.data();
 
-            if (data.score > bestScoreToday) {
+            if (data.score >= bestScoreToday) {
                 bestScoreToday = data.score;
                 foundToday = true;
             }
@@ -300,12 +300,99 @@ async function getTodaysLeaderboard() {
     });
 }
 
+async function getYesterdaysLeaderboard() {
+    const leaderboardCollection = collection(db, 'leaderboard');
+
+    // Obtém a data de ontem e hoje no formato YYYY-MM-DD
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Define a hora para meia-noite
+
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1); // Define para a meia-noite de ontem
+
+    // Consulta para encontrar registros do dia anterior
+    const q = query(
+        leaderboardCollection, 
+        where("date", ">=", yesterday), 
+        where("date", "<", today), 
+        orderBy('date')
+    );
+    
+    const leaderboardSnapshot = await getDocs(q);
+    const leaderboardTable = document.getElementById('leaderboardTableYesterday').getElementsByTagName('tbody')[0];
+    leaderboardTable.innerHTML = ''; // Limpa a tabela existente
+
+    // Cria um array para armazenar os dados recuperados
+    const leaderboardData = [];
+    leaderboardSnapshot.forEach(doc => {
+        leaderboardData.push(doc.data());
+    });
+
+    // Ordena o array com base no score em ordem decrescente
+    leaderboardData.sort((a, b) => b.score - a.score);
+
+    let rank = 1; // Adiciona um contador de rank
+
+    leaderboardData.forEach(data => {
+
+        // Limita o número de linhas a 10
+        if (rank > 10)
+            return;
+            
+        const row = leaderboardTable.insertRow();
+
+        // Adiciona a classe CSS correta com base no rank
+        if (rank === 1) {
+            row.className = 'gold';
+            row.insertCell().innerHTML = `<img src="../img/medal-1.png" width="40">`;
+        } else if (rank === 2) {
+            row.className = 'silver';
+            row.insertCell().innerHTML = `<img src="../img/medal-2.png" width="40">`;
+        } else if (rank === 3) {
+            row.className = 'bronze';
+            row.insertCell().innerHTML = `<img src="../img/medal-3.png" width="40">`;
+        } else {
+            row.insertCell().innerText = rank;
+        }
+
+        row.insertCell().innerText = data.name;
+        row.insertCell().innerText = data.score;
+
+        const flavorCell = row.insertCell();
+        const icon = document.createElement('div');
+        icon.className = 'character-container';
+        icon.innerHTML = `
+        <div class="character-container">
+            <div class="ice-cream">
+            <div class="glare"></div>
+            <div class="face">
+            <div class="eyes">
+            <div class="eye left">
+            </div>
+            <div class="eye right">
+            </div>
+            </div>
+            <div class="mouth"></div>
+            </div>
+            </div>
+            <div class="stick"></div>
+        </div>
+        `;
+        flavorCell.appendChild(icon);
+        changeCharacterColor(getFlavorName(data.flavor), icon);
+
+        rank++; // Incrementa o contador de rank
+    });
+}
+
+
 if (window.location.pathname.includes('/leaderboard.html')){
 
     document.getElementById('flavorScores').style.display = 'none';
     
     getAllTimeLeaderboard(); // Chama a função quando a página é carregada
     getTodaysLeaderboard();
+    getYesterdaysLeaderboard();
     getTopAwardsLeaderboard();
 
     changeCharacterColor("pink", document.getElementById('pink-character'));
@@ -371,7 +458,7 @@ async function getTopAwardsLeaderboard() {
 
     Object.values(players).forEach(dayPlayers => {
         // Ordena o array com base no score em ordem decrescente
-        dayPlayers.sort((a, b) => b.score - a.score);
+        dayPlayers.sort((a, b) => b.score - a.score || a.date.toDate().getTime() - b.date.toDate().getTime());
 
         dayPlayers.forEach((player, index) => {
             if (!awards[player.name]) {
@@ -483,13 +570,18 @@ async function getTopAwardsLeaderboard() {
 // Função para obter os top 3 jogadores de todos os tempos
 async function getAllTimeTopPlayers() {
     const leaderboardCollection = collection(db, 'leaderboard');
-    const q = query(leaderboardCollection, orderBy('score', 'desc'), limit(3));
+    const q = query(leaderboardCollection, orderBy('score', 'desc'), orderBy('date'));
     
     const leaderboardSnapshot = await getDocs(q);
     const topPlayers = [];
 
+    let limit = 3;
     leaderboardSnapshot.forEach(doc => {
         topPlayers.push(doc.data());
+
+        if (--limit === 0) {
+            return;
+        }
     });
 
     return topPlayers;
