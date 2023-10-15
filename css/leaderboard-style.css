@@ -1,7 +1,6 @@
-#leaderboardTable {
+.leaderboardTable {
     width: 60%;
     margin: 0 auto;
-    margin-top: 2%;
     margin-bottom: 2%;
     border-collapse: collapse;
     font-size: 1.2em;
@@ -9,63 +8,65 @@
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
     border-radius: 10px;
     overflow: hidden;
+    margin-top: 0;
+    border-radius: 0 0 10px 10px;
 }
 
-#leaderboardTable thead tr {
+.leaderboardTable thead tr {
     background-color: #FFF; 
     color: #555;
     text-align: center;
 }
 
-#leaderboardTable th, 
-#leaderboardTable td {
+.leaderboardTable th, 
+.leaderboardTable td {
     padding: 12px 15px;
 }
 
-#leaderboardTable tbody tr {
+.leaderboardTable tbody tr {
     border-bottom: 1px solid #d1d1d1;
 }
 
-#leaderboardTable tbody tr:nth-of-type(even) {
+.leaderboardTable tbody tr:nth-of-type(even) {
     background-color: #f7f7f7; 
 }
 
-#leaderboardTable tbody tr:nth-of-type(odd) {
+.leaderboardTable tbody tr:nth-of-type(odd) {
     background-color: #e9e9e9; 
 }
 
-#leaderboardTable td:nth-child(1), th:nth-child(1) {
+.leaderboardTable td:nth-child(1), th:nth-child(1) {
     text-align: center;
 }
 
-#leaderboardTable td:nth-child(2), th:nth-child(2) {
+.leaderboardTable td:nth-child(2), th:nth-child(2) {
     text-align: center; 
 }
 
-#leaderboardTable td:nth-child(3), th:nth-child(3) {
+.leaderboardTable td:nth-child(3), th:nth-child(3) {
     text-align: center; 
 }
 
-#leaderboardTable tbody tr:last-of-type {
+.leaderboardTable tbody tr:last-of-type {
     border-bottom: 2px solid #55555579;
 }
 
-#leaderboardTable tbody tr.active-row {
+.leaderboardTable tbody tr.active-row {
     font-weight: bold;
     color: #009879;
 }
 
-#leaderboardTable img {
+.leaderboardTable img {
     vertical-align: middle;
 }
 
-#leaderboardTable td {
+.leaderboardTable td {
     padding: 10px;
     text-align: left; 
     vertical-align: middle;
 }
 
-#leaderboardTable th {
+.leaderboardTable th {
     padding: 10px;
     background-color: #f0f0f0; 
     border-bottom: 2px solid #ccc; 
@@ -85,6 +86,25 @@
 
 .bronze {
     background-color: #f0d4b8 !important; 
+}
+
+.medal-container {
+    display: flex;
+    align-items: center;
+}
+
+.medal-item {
+    margin-right: 10px;
+}
+
+.medal-item:last-child {
+    margin-right: 0;
+}
+
+.awards-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .flavor-scores {
@@ -190,4 +210,99 @@
     transform: rotate(45deg);
     border-bottom-right-radius: 24px;
     border-top-right-radius: 24px;
+}
+
+.artist-container {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    position: absolute;
+}
+
+.artist-info {
+    padding: 12px 15px;
+    background-color: #FFF;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 200px;
+}
+
+.artist-text {
+    font-size: 16px;
+    color: #555;
+}
+
+.artist-container .icon .arrow {
+    left: auto; 
+    right: -10px;
+}
+
+.artist-container .icon .arrow::after,
+.artist-container .icon .arrow::before {
+    left: auto;
+    right: -5px;
+}
+
+.artist-container .icon .arrow::after {
+    transform: rotate(45deg);
+}
+
+.artist-container .icon .arrow::before {
+    transform: rotate(-45deg);
+}
+
+.artist-container .icon {
+    order: 2; 
+}
+
+/* TABS */
+/* Style the tab */
+.tab {
+    width: 60%; /* A mesma largura da tabela */
+    margin: 0 auto;
+    margin-top: 2%;
+    border-collapse: collapse;
+    font-size: 1.2em;
+    text-align: center;
+    border-radius: 10px 10px 0 0; /* Removido o raio da borda inferior */
+    overflow: hidden;
+    background-color: #f0f0f0; /* Cor de fundo semelhante ao cabeçalho da tabela */
+    border-bottom: 2px solid rgb(230, 230, 230); 
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    cursor: pointer;
+    padding: 12px 15px; /* Padding semelhante às células da tabela */
+    transition: 0.3s;
+    font-size: 1em; /* Tamanho da fonte semelhante às células da tabela */
+    color: #555; /* Cor do texto semelhante às células da tabela */
+    border-right: 1px solid #cccccc; /* Adiciona borda entre as barras de pontuação */
+    font-family: 'Lobster', cursive;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #e9e9e9; /* Cor de fundo ao passar o mouse semelhante às linhas ímpares da tabela */
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #f7f7f7; /* Cor de fundo da aba ativa semelhante às linhas pares da tabela */
+    font-weight: bold; /* Texto em negrito para a aba ativa */
+    color: #555; /* Cor do texto para a aba ativa */
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    border-top: none;
+}
+
+.title{
+    margin-top: 1%;
 }

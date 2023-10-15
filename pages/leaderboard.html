@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt"> <!--  oncontextmenu="return false" -->
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +28,7 @@
     <!--  style="border: 1px solid black; padding: 10px;" -->
     <div>
         <h1 class="title">Leaderboard</h1>
-        
+
         <div id="flavorScores" class="flavor-scores">
             <div id="1Score" class="flavor-score pink">
                 <div id="pink-character" class="character-container" style="margin-top: 10px;">
@@ -80,18 +80,77 @@
             </div>
         </div>
         
-        <table id="leaderboardTable">
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Name</th>
-                    <th>Score</th>
-                    <th>Flavor</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div class="tab">
+            <button class="tablinks active" onclick="openTab(event, 'AllTime')">All-Time High Scores 👑</button>
+            <button class="tablinks" onclick="openTab(event, 'Daily')">Today's Best 🌞</button>
+            <button class="tablinks" onclick="openTab(event, 'Medalists')">Top Medalists 🥇</button>
+        </div>
+        
+        <div id="AllTime" class="tabcontent" style="display: block;">
+            <table id="leaderboardTableAllTime" class="leaderboardTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Flavor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        
+        <div id="Daily" class="tabcontent" style="display: none;">
+            <table id="leaderboardTableDaily" class="leaderboardTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Flavor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="Medalists" class="tabcontent" style="display: none;">
+            <table id="leaderboardTableMedalists" class="leaderboardTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Awards</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>1000</td>
+                        <td class="awards-cell">
+                            <div class="medal-container">
+                                <div class="medal-item">
+                                    <img src="../img/golden-cup.png" width="40">
+                                </div>
+                                <div class="medal-item">
+                                    <img src="../img/medal-1.png" width="40"> x5
+                                </div>
+                                <div class="medal-item">
+                                    <img src="../img/medal-2.png" width="40"> x3
+                                </div>
+                                <div class="medal-item">
+                                    <img src="../img/medal-3.png" width="40"> x2
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         
         <button class="btn sm-btn" style="display: block; margin: auto; margin-bottom: 50px;" onclick="openIndex()">Return</button>
 
@@ -104,6 +163,7 @@
     <script src="..\js\extra.js"></script>
     <script src="..\js\utils.js"></script>
     <script src="..\js\main-page.js"></script>
+    <script src="..\js\tabs.js"></script>
     <script type="module" src="..\js\configDB.js"></script>
     <script type="module" src="..\js\leaderboard.js"></script>
 

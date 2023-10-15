@@ -81,39 +81,39 @@ function changeCharacterColor(cor, element = document) {
     const corCSS = cores[cor];
 
     if (!corCSS) {
-        console.error('Cor não reconhecida:', cor);
+        console.error('Unrecognized color:', cor);
         return;
     }
 
-    const iceCream = element.querySelector('.ice-cream');
-    const glare = element.querySelector('.glare');
+    const iceCreams = element.querySelectorAll('.ice-cream');
+    const glares = element.querySelectorAll('.glare');
     const eyes = element.querySelectorAll('.eye');
-    const mouth = element.querySelector('.mouth');
-    const title = element.querySelector('.title');
+    const mouths = element.querySelectorAll('.mouth');
+    const titles = element.querySelectorAll('.title');
 
-    if (iceCream) {
+    iceCreams.forEach(iceCream => {
         iceCream.style.backgroundColor = corCSS['background'];
         iceCream.style.borderTopColor = corCSS['lights'];
-    }
+    });
 
-    if (glare) {
+    glares.forEach(glare => {
         glare.style.backgroundColor = corCSS['glare'];
-    }
+    });
 
     eyes.forEach(eye => {
         eye.style.backgroundColor = corCSS['eye'];
         eye.style.borderBottomColor = corCSS['lights'];
     });
 
-    if (mouth) {
+    mouths.forEach(mouth => {
         mouth.style.backgroundColor = corCSS['mouth'];
         mouth.style.borderBottomColor = corCSS['lights'];
-    }
+    });
 
-    if (title) {
+    titles.forEach(title => {
         title.style.color = corCSS['lights'];
         title.style.textShadow = `0 0 10px ${corCSS['shadow']}`;
-    }
+    });
 }
 
 function getFlavorId(characterColor){
@@ -132,4 +132,12 @@ function getFlavorName(flavorId){
         3: 'green'
     };
     return flavors[flavorId];
+}
+
+function getTodayDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0'); // padStart ensures that month is always two digits
+    const day = today.getDate().toString().padStart(2, '0'); // padStart ensures that day is always two digits
+    return `${year}-${month}-${day}`;
 }

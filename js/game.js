@@ -6,11 +6,11 @@ let temporizador;
 let isAnimating = false;
 let lastMoveWasValid = false;
 
-// localStorage.setItem('bestScore', 20);
-let bestScore = localStorage.getItem('bestScore');
-
-if (!bestScore) bestScore = 0;
-document.getElementById("game-best-score").innerHTML = "<strong> Best Score: " + bestScore + "</strong>";
+// localStorage.setItem('bestScores', "{}");
+let bestScores = JSON.parse(localStorage.getItem('bestScores')) || {};
+const today = getTodayDate();
+let bestScoreToday = bestScores[today] || 0;
+document.getElementById("game-best-score").innerHTML = "<strong> Best Score: " + bestScoreToday + "</strong>";
 const placar = document.getElementById('game-score');
 
 const elementoContagemRegressiva = document.getElementById('contagemRegressiva');
@@ -45,12 +45,13 @@ function iniciarTemporizador() {
         if (tempoRestante <= 0) {
             clearInterval(temporizador);
             
-            if (score >= bestScore) {
-                bestScore = score;
-                localStorage.setItem('bestScore', score);
+            if (score >= bestScoreToday) {
+                bestScoreToday = score;
+                bestScores[today] = bestScoreToday;
+                localStorage.setItem('bestScores', JSON.stringify(bestScores));
 
                 try {
-                    updateLeaderboard(score, getFlavorId(characterColor));
+                    updateLeaderboard(bestScoreToday, getFlavorId(characterColor));
                 } catch (error) {
                 }
             }
@@ -191,7 +192,7 @@ function restartGame() {
     modal.style.display = "none";
     jogoIniciado = true;
 
-    document.getElementById("game-best-score").innerHTML = "<strong> Best Score: " + bestScore + "</strong>";
+    document.getElementById("game-best-score").innerHTML = "<strong> Best Score: " + bestScoreToday + "</strong>";
     score = 0;
     moveCounter = 0;
     elementoContagemRegressiva.style.color = 'green';
@@ -203,7 +204,7 @@ function restartGame() {
     isAnimating = false;
     
     clearInterval(temporizador); 
-    iniciarTemporizador(); 
+    iniciarTemporizador();
     reatribuirCoresTabuleiro();
     removeAllPowerUps();
     clearAllInventorySlots();
