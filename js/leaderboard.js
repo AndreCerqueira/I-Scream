@@ -8,8 +8,6 @@ const db = getFirestore(app);
 
 let devRank = 0;
 let artistRank = 0;
-let devRankToday = 0;
-let artistRankToday = 0;
 async function getAllTimeLeaderboard() {
     const leaderboardCollection = collection(db, 'leaderboard');
     const q = query(leaderboardCollection, orderBy('score', 'desc'), orderBy('date'));
@@ -79,10 +77,10 @@ async function getAllTimeLeaderboard() {
         flavorCell.appendChild(icon);
         changeCharacterColor(getFlavorName(data.flavor), icon);
 
-        if (data.name.toLowerCase() === 'né') {
+        if (data.name === 'Né') {
             devRank = rank;
         }
-        if (data.name.toLowerCase() === 'orange') {
+        if (data.name === 'Arlecchino') {
             artistRank = rank;
         }
 
@@ -259,6 +257,12 @@ async function getTodaysLeaderboard() {
         } else if (rank === 3) {
             row.className = 'bronze';
             row.insertCell().innerHTML = `<img src="../img/medal-3.png" width="40">`;
+        } else if (rank === 4) {
+            row.className = 'fourth';
+            row.insertCell().innerHTML = `<img src="../img/medal-4.png" width="30">`;
+        } else if (rank === 5){
+            row.className = 'fifth';
+            row.insertCell().innerHTML = `<img src="../img/medal-5.png" width="30">`;
         } else {
             row.insertCell().innerText = rank;
         }
@@ -289,10 +293,10 @@ async function getTodaysLeaderboard() {
         flavorCell.appendChild(icon);
         changeCharacterColor(getFlavorName(data.flavor), icon);
 
-        if (data.name.toLowerCase() === 'né') {
+        if (data.name === 'Né') {
             devRank = rank;
         }
-        if (data.name.toLowerCase() === 'orange') {
+        if (data.name === 'Arlecchino') {
             artistRank = rank;
         }
 
@@ -351,7 +355,14 @@ async function getYesterdaysLeaderboard() {
         } else if (rank === 3) {
             row.className = 'bronze';
             row.insertCell().innerHTML = `<img src="../img/medal-3.png" width="40">`;
-        } else {
+        } else if (rank === 4) {
+            row.className = 'fourth';
+            row.insertCell().innerHTML = `<img src="../img/medal-4.png" width="30">`;
+        } else if (rank === 5){
+            row.className = 'fifth';
+            row.insertCell().innerHTML = `<img src="../img/medal-5.png" width="30">`;
+        }
+        else {
             row.insertCell().innerText = rank;
         }
 
@@ -462,18 +473,24 @@ async function getTopAwardsLeaderboard() {
 
         dayPlayers.forEach((player, index) => {
             if (!awards[player.name]) {
-                awards[player.name] = { gold: 0, silver: 0, bronze: 0, all_time_1st: 0, all_time_2nd: 0, all_time_3rd: 0, points: 0 };
+                awards[player.name] = { gold: 0, silver: 0, bronze: 0, fourth: 0, fifth: 0, all_time_1st: 0, all_time_2nd: 0, all_time_3rd: 0, points: 0 };
             }
 
             if (index === 0) {
                 awards[player.name].gold++;
-                awards[player.name].points += 3;
+                awards[player.name].points += 5;
             } else if (index === 1) {
                 awards[player.name].silver++;
-                awards[player.name].points += 2;
+                awards[player.name].points += 4;
             } else if (index === 2) {
                 awards[player.name].bronze++;
-                awards[player.name].points++;
+                awards[player.name].points += 3;
+            } else if (index === 3) {
+                awards[player.name].fourth++;
+                awards[player.name].points += 2;
+            } else if (index === 4) {
+                awards[player.name].fifth++;
+                awards[player.name].points ++;
             }
         });
     });
@@ -559,6 +576,18 @@ async function getTopAwardsLeaderboard() {
                              </div>`);
         }
 
+        if (awards.fourth > 0) {
+            medalsHTML.push(`<div class="medal-item">
+                                <img src="../img/medal-4.png" width="30"> x${awards.fourth} 
+                                </div>`);
+        }
+
+        if (awards.fifth > 0) {
+            medalsHTML.push(`<div class="medal-item">
+                                <img src="../img/medal-5.png" width="30"> x${awards.fifth}
+                                </div>`);
+        }
+
         awardsCell.innerHTML = `<div class="awards-cell">
                                     <div class="medal-container">
                                         ${medalsHTML.join('')}
@@ -575,12 +604,17 @@ async function getAllTimeTopPlayers() {
     const leaderboardSnapshot = await getDocs(q);
     const topPlayers = [];
 
-    let limit = 3;
     leaderboardSnapshot.forEach(doc => {
-        topPlayers.push(doc.data());
+        const playerData = doc.data();
 
-        if (--limit === 0) {
-            return;
+        // Verifica se o jogador já está no topPlayers
+        if (!topPlayers.some(player => player.name === playerData.name)) {
+            topPlayers.push(playerData);
+
+            // Se já temos 3 jogadores únicos, saímos do loop
+            if (topPlayers.length === 3) {
+                return false; // Retorna false para sair do loop
+            }
         }
     });
 

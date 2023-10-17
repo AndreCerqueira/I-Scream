@@ -44,13 +44,16 @@ h1, h2 {
 }
 
 .color-square.blue {
-    background-color: #b8dbe7;
+    /* background-color: #b8dbe7; */
+    background-image: url("../img/cold-area.svg");
 }
 
 .color-square.red {
-    background-color: #f5cdcd;
+    /* background-color: #f5cdcd; */
+    background-image: url("../img/hot-area.svg");
 }
 
 .color-square.orange {
-    background-color: #fff1e1;
+    /* background-color: #fff1e1; */
+    background-image: url("../img/warm-area.svg");
 }

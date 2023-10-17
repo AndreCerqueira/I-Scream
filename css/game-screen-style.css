@@ -42,15 +42,18 @@
 }
 
 #tabuleiro .celula-azul {
-    background-color: #b8dbe7;
+    /* background-color: #b8dbe7; */
+    background-image: url("../img/cold-area.svg");
 }
 
 #tabuleiro .celula-vermelho {
-    background-color: #f5cdcd;
+    /* background-color: #f5cdcd; */
+    background-image: url("../img/hot-area.svg");
 }
 
 #tabuleiro .celula-laranja {
-    background-color: #fff1e1;
+    /* background-color: #fff1e1; */
+    background-image: url("../img/warm-area.svg");
 }
 
 /* Bubbles */
